@@ -50,16 +50,41 @@
         </div>
       </div>
 
-      <aside class="hero-panel reveal" aria-label="Painel estratégico DASAIhub">
+      <aside class="hero-panel previsibilidade-card reveal" aria-label="Gráfico de previsibilidade DASAIhub">
         <div class="panel-top">
           <span class="pulse"></span>
-          <strong>Result Builder</strong>
+          <strong>Previsibilidade DASAIhub</strong>
         </div>
-        <p>Base de conhecimento estruturada para converter dados difusos em decisões executáveis.</p>
-        <div class="metric-grid">
-          <div><b>100%</b><span>Renovar gestão</span></div>
-          <div><b>50%</b><span>Crescer excelência</span></div>
-          <div><b>40%</b><span>Conquistar faturamento</span></div>
+        <p>Escolha uma etapa para visualizar a evolução prevista dos vetores estratégicos.</p>
+
+        <div class="stage-buttons" aria-label="Selecionar período de projeção">
+          <button type="button" id="btn6m" onclick="setStage('6m')">6 meses</button>
+          <button type="button" id="btn1a" onclick="setStage('1a')">1 ano</button>
+          <button type="button" id="btn2a" onclick="setStage('2a')">2 anos</button>
+        </div>
+
+        <div class="forecast-item">
+          <div class="forecast-top">
+            <span>Renovar gestão</span>
+            <strong id="gestaoValue">30%</strong>
+          </div>
+          <div class="forecast-bar"><div class="forecast-fill" id="gestaoBar"></div></div>
+        </div>
+
+        <div class="forecast-item">
+          <div class="forecast-top">
+            <span>Crescer com excelência</span>
+            <strong id="excelenciaValue">20%</strong>
+          </div>
+          <div class="forecast-bar"><div class="forecast-fill" id="excelenciaBar"></div></div>
+        </div>
+
+        <div class="forecast-item">
+          <div class="forecast-top">
+            <span>Conquistar faturamento</span>
+            <strong id="faturamentoValue">10%</strong>
+          </div>
+          <div class="forecast-bar"><div class="forecast-fill" id="faturamentoBar"></div></div>
         </div>
       </aside>
     </section>
@@ -157,23 +182,16 @@
         <p class="eyebrow">Contato</p>
         <h2>Pronto para transformar complexidade em ação?</h2>
         <p>Solicite uma análise inicial da sua operação, projeto, funil, marca ou ideia.</p>
-        <div class="contact-actions">
-          <a class="btn primary" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20DASAIhub%20e%20quero%20conversar." target="_blank" rel="noopener">WhatsApp: (15) 99796-3306</a>
-          <a class="btn dark-btn" href="mailto:contato@dasaihub.com.br?subject=Contato%20pelo%20site%20DASAIhub">contato@dasaihub.com.br</a>
-          <a class="btn instagram" href="https://www.instagram.com/das.aihub" target="_blank" rel="noopener">Instagram @das.aihub</a>
+        <div class="contact-actions single-contact-action">
+          <a class="btn instagram-filled" href="https://www.instagram.com/das.aihub" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
     </section>
   </main>
 
-  <a class="floating-whatsapp" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20DASAIhub." target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">WhatsApp</a>
 
-  <footer class="footer">
-    <strong>DASAIhub Engenharia e Arquitetura</strong>
-    <p>Análises Avançadas de Dados • Engenharia de Prompt • IA aplicada à decisão</p>
-    <p><a href="mailto:contato@dasaihub.com.br">contato@dasaihub.com.br</a> · <a href="https://wa.me/5515997963306" target="_blank" rel="noopener">(15) 99796-3306</a> · <a href="https://www.instagram.com/das.aihub" target="_blank" rel="noopener">@das.aihub</a></p>
-    <p><a href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Certificações</a> · <a href="https://drive.google.com/file/d/1JX8CR1DGKwToaSZATJcdIDRKcdOUxZIV/view?usp=drive_link" target="_blank" rel="noopener">PDF Analítico</a></p>
-    <p>© 2026 DASAIhub. Todos os direitos reservados.</p>
+  <footer class="footer minimal-footer">
+    <p><a href="mailto:contato@dasaihub.com.br">contato@dasaihub.com.br</a></p>
   </footer>
 
   <script src="script.js"></script>
