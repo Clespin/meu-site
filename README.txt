@@ -1,19 +1,15 @@
-DASAIhub - Site profissional responsivo
+DASAIhub - Site Profissional V3
 
-Arquivos principais:
-- index.html: estrutura e textos do site
-- style.css: identidade visual, cores, responsividade e layout
-- script.js: menu mobile e animações
+Alterações incluídas:
+- Remoção do ícone azul com letra D no topo.
+- Logo textual premium: DASAIhub.
+- Link de Certificações: https://canva.link/m1ktxt86hv94vg9
+- Link do PDF Analítico: https://drive.google.com/file/d/1JX8CR1DGKwToaSZATJcdIDRKcdOUxZIV/view?usp=drive_link
+- Links adicionados no menu, hero, seções próprias e rodapé.
+- Mantidos WhatsApp, Instagram e e-mail profissional.
 
-Como publicar:
+Publicação:
 1. Extraia este ZIP.
-2. Abra o repositório GitHub ligado ao Cloudflare Pages/Workers.
-3. Envie/substitua index.html, style.css e script.js.
-4. Clique em Commit changes.
-5. Aguarde a Cloudflare publicar.
-6. Acesse https://dasaihub.com.br
-
-Contatos configurados:
-WhatsApp: 55 15 99796-3306
-Instagram: @das.aihub
-E-mail: contato@dasaihub.com.br
+2. Envie index.html, style.css e script.js para o repositório GitHub conectado à Cloudflare.
+3. Clique em Commit changes.
+4. Aguarde a Cloudflare atualizar.
