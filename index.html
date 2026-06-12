@@ -3,127 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DASAIhub: Engenharia de Prompt, Arquitetura de Dados, IA aplicada à decisão e análises avançadas para transformar problemas invisíveis em crescimento previsível." />
-  <title>DASAIhub | Engenharia e Arquitetura de IA</title>
+  <meta name="description" content="DASAIhub: startup de Inteligência Artificial, Engenharia de Prompt, Arquitetura de Dados e análises avançadas para transformar problemas invisíveis em crescimento previsível." />
+  <meta name="keywords" content="DASAIhub, inteligência artificial, engenharia de prompt, análise de dados, IA generativa, automação, prospecção com IA, dados comportamentais" />
+  <meta name="author" content="DASAIhub" />
+  <meta property="og:title" content="DASAIhub | IA, Dados e Engenharia de Prompt" />
+  <meta property="og:description" content="Transformamos problemas invisíveis em sistemas previsíveis de aquisição, crescimento e monetização." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dasaihub.com.br" />
+  <meta name="theme-color" content="#07111f" />
+  <title>DASAIhub | IA, Engenharia de Prompt e Análises Avançadas</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="DASAIhub início"><span>DASAI</span><strong>hub</strong></a>
-    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <a href="#inicio" class="brand brand-wordmark" aria-label="DASAIhub início">
+      <span class="brand-text">DASAI<span>hub</span></span>
+    </a>
+
+    <button class="menu-button" id="menuButton" aria-label="Abrir menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav class="nav-menu" aria-label="Menu principal">
+
+    <nav class="nav" id="nav">
       <a href="#sobre">Sobre</a>
-      <a href="#previsibilidade">Previsibilidade</a>
       <a href="#metodo">Método</a>
       <a href="#solucoes">Soluções</a>
+      <a href="#prova">Estrutura</a>
+      <a href="#certificacoes">Certificações</a>
+      <a href="#analitico">PDF Analítico</a>
       <a href="#contato">Contato</a>
     </nav>
   </header>
 
-  <main id="inicio">
-    <section class="hero section-shell">
-      <div class="hero-copy">
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content reveal">
         <p class="eyebrow">IA avançada • Dados • Comportamento • Execução</p>
         <h1>Transformamos problemas invisíveis em crescimento previsível.</h1>
-        <p class="lead">A DASAIhub funde Engenharia de Prompt, Arquitetura de Dados e Tecnologia Comportamental para criar sistemas de clareza, prospecção, aquisição, organização e monetização.</p>
-        <div class="hero-actions">
-          <a class="btn btn-outline" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">Solicitar análise</a>
-          <a class="btn btn-outline" href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Ver certificações</a>
-          <a class="btn btn-outline" href="https://drive.google.com/file/d/1JX8CR1DGKwToaSZATJcdIDRKcdOUxZIV/view?usp=drive_link" target="_blank" rel="noopener">PDF analítico</a>
+        <p class="hero-text">
+          A DASAIhub funde Engenharia de Prompt, Arquitetura de Dados e Tecnologia Comportamental para criar sistemas de clareza, prospecção, aquisição, organização e monetização.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">Solicitar análise</a>
+          <a class="btn ghost" href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Ver certificações</a>
+          <a class="btn ghost" href="https://drive.google.com/file/d/1JX8CR1DGKwToaSZATJcdIDRKcdOUxZIV/view?usp=drive_link" target="_blank" rel="noopener">PDF analítico</a>
         </div>
       </div>
 
+      <aside class="hero-panel previsibilidade-card reveal" aria-label="Gráfico de previsibilidade DASAIhub">
+        <div class="panel-top">
+          <span class="pulse"></span>
+          <strong>Previsibilidade DASAIhub</strong>
+        </div>
+        <p>Escolha uma etapa para visualizar a evolução prevista dos vetores estratégicos.</p>
+
+        <div class="stage-buttons" aria-label="Selecionar período de projeção">
+          <button type="button" id="btn6m" onclick="setStage('6m')">6 meses</button>
+          <button type="button" id="btn1a" onclick="setStage('1a')">1 ano</button>
+          <button type="button" id="btn2a" onclick="setStage('2a')">2 anos</button>
+        </div>
+
+        <div class="forecast-item">
+          <div class="forecast-top">
+            <span>Renovar gestão</span>
+            <strong id="gestaoValue">30%</strong>
+          </div>
+          <div class="forecast-bar"><div class="forecast-fill" id="gestaoBar"></div></div>
+        </div>
+
+        <div class="forecast-item">
+          <div class="forecast-top">
+            <span>Crescer com excelência</span>
+            <strong id="excelenciaValue">20%</strong>
+          </div>
+          <div class="forecast-bar"><div class="forecast-fill" id="excelenciaBar"></div></div>
+        </div>
+
+        <div class="forecast-item">
+          <div class="forecast-top">
+            <span>Conquistar faturamento</span>
+            <strong id="faturamentoValue">10%</strong>
+          </div>
+          <div class="forecast-bar"><div class="forecast-fill" id="faturamentoBar"></div></div>
+        </div>
+      </aside>
     </section>
 
-    <section id="previsibilidade" class="section-shell two-column">
-      <div class="predict-card">
-        <h2>Previsibilidade DASAIhub</h2>
-        <p>Escolha uma etapa para visualizar a evolução prevista.</p>
-        <div class="stage-buttons" role="tablist" aria-label="Etapas de previsibilidade">
-          <button id="btn6m" type="button" onclick="setStage('6m')">6 meses</button>
-          <button id="btn1a" type="button" onclick="setStage('1a')">1 ano</button>
-          <button id="btn2a" type="button" onclick="setStage('2a')">2 anos</button>
-        </div>
-        <div class="progress-item">
-          <div class="progress-top"><span>Renovar Gestão</span><strong id="gestaoValue">30%</strong></div>
-          <div class="bar"><div class="fill" id="gestaoBar"></div></div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-top"><span>Crescer com excelência</span><strong id="excelenciaValue">20%</strong></div>
-          <div class="bar"><div class="fill" id="excelenciaBar"></div></div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-top"><span>Conquistar Faturamento</span><strong id="faturamentoValue">10%</strong></div>
-          <div class="bar"><div class="fill" id="faturamentoBar"></div></div>
-        </div>
+    <section class="section intro" id="sobre">
+      <div class="section-title reveal">
+        <p class="eyebrow">O que fazemos</p>
+        <h2>Uma startup de IA para clareza estratégica, precisão analítica e execução tática.</h2>
       </div>
-
-      <div class="content-card" id="sobre">
-        <p class="eyebrow">Arquitetura analítica</p>
-        <h2>Da complexidade à clareza operacional.</h2>
-        <p>A DASAIhub estrutura dados, linguagem, comportamento e execução para reduzir decisões intuitivas, revelar gargalos ocultos e criar rotas de ação mensuráveis.</p>
-        <ul class="check-list">
-          <li>Engenharia de Prompt aplicada à decisão.</li>
-          <li>Modelagem de rastreamento e fusão de dados.</li>
-          <li>Prospecção persuasiva para aquisição e crescimento.</li>
-          <li>Governança, ética e conformidade analítica.</li>
-        </ul>
+      <div class="intro-grid">
+        <article class="glass reveal">
+          <h3>Problemas invisíveis</h3>
+          <p>Diagnosticamos falhas ocultas, inércia analítica, decisões intuitivas, ruídos comportamentais e lacunas de execução.</p>
+        </article>
+        <article class="glass reveal">
+          <h3>Dados + comportamento</h3>
+          <p>Integramos dados massivos, padrões de atenção e tecnologia comportamental para gerar sinais preditivos de alto impacto.</p>
+        </article>
+        <article class="glass reveal">
+          <h3>Crescimento mensurável</h3>
+          <p>Projetamos prospecção persuasiva, aquisição, retenção, organização e monetização com governança e conformidade.</p>
+        </article>
       </div>
     </section>
 
-    <section id="metodo" class="section-shell">
-      <div class="section-heading">
-        <p class="eyebrow">Método</p>
-        <h2>Construtor de fluxo avançado.</h2>
-        <p>Uma arquitetura para transformar dados dispersos em hipóteses, prioridades e execução tática.</p>
+    <section class="section dark" id="metodo">
+      <div class="section-title reveal">
+        <p class="eyebrow">Método DASAIhub</p>
+        <h2>Da incerteza à ação estratégica.</h2>
       </div>
-      <div class="steps-grid flow-grid">
-        <article><span>01</span><h3>Atenção Analítica</h3><p>Mapeamos variáveis críticas, sinais fracos e gargalos invisíveis que travam decisão, conversão e crescimento.</p></article>
-        <article><span>02</span><h3>Transformação Tática</h3><p>Convertemos dados dispersos em hipóteses claras, prioridades mensuráveis e rotas de execução verificáveis.</p></article>
-        <article><span>03</span><h3>Escalabilidade Operacional</h3><p>Organizamos fluxos, métricas e processos para que a operação cresça com precisão, governança e previsibilidade.</p></article>
+      <div class="timeline">
+        <article class="step reveal"><span>01</span><h3>Diagnóstico macro</h3><p>Mapeamento 360º de objetivos, gargalos, dados disponíveis, mensagens, funil e operação.</p></article>
+        <article class="step reveal"><span>02</span><h3>Rastreamento e fusão</h3><p>Cruzamento entre dados, comportamento, contexto, oportunidades e sinais de decisão.</p></article>
+        <article class="step reveal"><span>03</span><h3>Engenharia de instruções</h3><p>Construção de prompts, parâmetros, fluxos e critérios para IA Generativa com maior precisão.</p></article>
+        <article class="step reveal"><span>04</span><h3>Arquitetura de execução</h3><p>Transformação dos insights em planos, métricas, responsáveis, automações e entregas táticas.</p></article>
       </div>
     </section>
 
-    <section id="solucoes" class="section-shell">
-      <div class="section-heading">
+    <section class="section" id="solucoes">
+      <div class="section-title reveal">
         <p class="eyebrow">Soluções</p>
-        <h2>Sistemas para aquisição, organização e monetização.</h2>
+        <h2>Serviços para empresas, marcas e projetos que precisam operar com inteligência.</h2>
       </div>
-      <div class="solutions-grid premium-solutions">
-        <article><span class="solution-tag">Prompt</span><h3>Engenharia de Prompt</h3><p>Arquiteturas de instrução para reduzir ruído, viés e inconsistência em decisões apoiadas por IA.</p></article>
-        <article><span class="solution-tag">Dados</span><h3>Análises Avançadas</h3><p>Tradução de problemas difusos em indicadores, padrões, alertas e decisões executáveis.</p></article>
-        <article><span class="solution-tag">Aquisição</span><h3>Prospecção Persuasiva</h3><p>Sistemas de captação estruturados para aquisição, organização, crescimento e monetização.</p></article>
-        <article><span class="solution-tag">Processos</span><h3>Fluxos Operacionais</h3><p>Mapeamento de etapas, responsáveis, gargalos e oportunidades de automação estratégica.</p></article>
+      <div class="cards">
+        <article class="card reveal"><h3>Engenharia de Prompt</h3><p>Arquitetura de instruções para reduzir ruído, controlar respostas e transformar IA em ferramenta estratégica.</p></article>
+        <article class="card reveal"><h3>Análises Avançadas de Dados</h3><p>Tradução de dados complexos em clareza estatística, insights preditivos e decisões fundamentadas.</p></article>
+        <article class="card reveal"><h3>Modelagem de Processos</h3><p>Mapeamento de fluxos, desperdícios, responsabilidades, métricas e automações de alta precisão.</p></article>
+        <article class="card reveal"><h3>SEO e Prospecção</h3><p>Pesquisa de palavras-chave, posicionamento, funis persuasivos e geração contínua de leads.</p></article>
+        <article class="card reveal"><h3>Marketing e Identidade Visual</h3><p>Design de performance para captação, autoridade, retenção e crescimento sustentável.</p></article>
+        <article class="card reveal"><h3>Gestão e Execução Tática</h3><p>Orquestração de prioridades, prazos, recursos, indicadores e planos de ação mensuráveis.</p></article>
       </div>
     </section>
 
-    <section id="contato" class="contact-section">
-      <div class="contact-card">
+    <section class="section proof" id="prova">
+      <div class="proof-copy reveal">
+        <p class="eyebrow">Estrutura técnica</p>
+        <h2>Arquitetura analítica com impacto humano.</h2>
+        <p>Unimos IA Analítica, IA Generativa e visão comportamental para evitar decisões por mera intuição. A proposta é criar previsibilidade com ética, governança e conformidade.</p>
+      </div>
+      <div class="proof-list reveal">
+        <div><strong>01</strong><span>Substituição da intuição por precisão.</span></div>
+        <div><strong>02</strong><span>Resolução de problemas sistêmicos invisíveis.</span></div>
+        <div><strong>03</strong><span>Insights preditivos para decisões de alto impacto.</span></div>
+        <div><strong>04</strong><span>Prospecção persuasiva e crescimento financeiro.</span></div>
+      </div>
+    </section>
+
+    <section class="section credentials" id="certificacoes">
+      <div class="section-title reveal">
+        <p class="eyebrow">Credenciais</p>
+        <h2>Certificações e especializações que sustentam o rigor metodológico da DASAIhub.</h2>
+      </div>
+      <div class="resource-card reveal">
+        <div>
+          <h3>Base técnica multidisciplinar</h3>
+          <p>Formação contínua em Inteligência Artificial, Engenharia de Prompt, Data Analytics, Lean Six Sigma, Gestão de Projetos, Marketing Digital e Arquitetura Analítica aplicada à resolução de problemas invisíveis.</p>
+        </div>
+        <a class="btn primary" href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Abrir certificações</a>
+      </div>
+    </section>
+
+    <section class="section analytical-pdf" id="analitico">
+      <div class="resource-card dark-resource reveal">
+        <div>
+          <p class="eyebrow">Documento estratégico</p>
+          <h2>PDF Analítico DASAIhub</h2>
+          <p>Conheça a arquitetura conceitual da DASAIhub: Engenharia de Prompt, análise avançada de dados, modelagem de rastreamento e fusão, mecanismos de atenção, governança e previsibilidade aplicada à aquisição, crescimento e monetização.</p>
+        </div>
+        <a class="btn primary" href="https://drive.google.com/file/d/1JX8CR1DGKwToaSZATJcdIDRKcdOUxZIV/view?usp=drive_link" target="_blank" rel="noopener">Abrir PDF analítico</a>
+      </div>
+    </section>
+
+    <section class="section contact" id="contato">
+      <div class="contact-box reveal">
         <p class="eyebrow">Contato</p>
         <h2>Pronto para transformar complexidade em ação?</h2>
         <p>Solicite uma análise inicial da sua operação, projeto, funil, marca ou ideia.</p>
-        <div class="contact-buttons">
-          <a class="btn btn-whatsapp" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">WhatsApp</a>
-          <a class="btn btn-instagram" href="https://www.instagram.com/das.aihub" target="_blank" rel="noopener">Instagram</a>
+        <div class="contact-actions single-contact-action">
+          <a class="btn contact-filled" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20inicial%20da%20DASAIhub." target="_blank" rel="noopener">Contato</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <h2>DASAIhub Engenharia e Arquitetura</h2>
-    <p>Análises Avançadas de Dados • Engenharia de Prompt • IA aplicada à decisão</p>
-    <a href="mailto:contato@dasaihub.com.br">contato@dasaihub.com.br</a>
-    <p class="copyright">© 2026 DASAIhub. Todos os direitos reservados.</p>
+
+  <footer class="footer professional-footer">
+    <div class="footer-inner">
+      <h2>DASAIhub Engenharia e Arquitetura</h2>
+      <p class="footer-services">Análises Avançadas de Dados • Engenharia de Prompt • IA aplicada à decisão</p>
+      <p><a href="mailto:contato@dasaihub.com.br">contato@dasaihub.com.br</a></p>
+      <div class="footer-links" aria-label="Links úteis">
+        <a href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Certificações</a>
+        <span>•</span>
+        <a href="https://drive.google.com/file/d/1JX8CR1DGKwToaSZATJcdIDRKcdOUxZIV/view?usp=drive_link" target="_blank" rel="noopener">PDF Analítico</a>
+      </div>
+      <p class="copyright">© 2026 DASAIhub. Todos os direitos reservados.</p>
+      <a class="footer-whatsapp" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20inicial%20da%20DASAIhub." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
   </footer>
 
-  <a class="floating-whatsapp" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <path d="M16.02 3.2A12.72 12.72 0 0 0 5.1 22.43L3.5 28.8l6.53-1.54A12.74 12.74 0 1 0 16.02 3.2Zm0 2.36a10.38 10.38 0 0 1 8.82 15.85 10.4 10.4 0 0 1-13.95 3.47l-.46-.27-3.56.84.87-3.47-.3-.49A10.36 10.36 0 0 1 16.02 5.56Zm-4.23 4.96c-.25 0-.64.1-.98.47-.34.38-1.28 1.25-1.28 3.05 0 1.79 1.31 3.52 1.49 3.76.18.24 2.53 4.05 6.24 5.52 3.08 1.22 3.71.98 4.38.92.67-.06 2.16-.88 2.46-1.73.31-.85.31-1.58.22-1.73-.09-.15-.34-.24-.71-.42-.37-.18-2.16-1.07-2.5-1.19-.34-.12-.58-.18-.82.18-.24.37-.95 1.19-1.16 1.43-.21.24-.43.27-.8.09-.37-.18-1.55-.57-2.95-1.82-1.09-.97-1.83-2.17-2.04-2.54-.21-.37-.02-.57.16-.75.16-.16.37-.43.55-.64.18-.21.24-.37.37-.61.12-.24.06-.46-.03-.64-.09-.18-.82-1.98-1.13-2.71-.3-.71-.6-.61-.82-.62h-.7Z"/>
-    </svg>
-  </a>
+  <a class="floating-whatsapp" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20inicial%20da%20DASAIhub." target="_blank" rel="noopener" aria-label="Falar com a DASAIhub pelo WhatsApp">WhatsApp</a>
 
   <script src="script.js"></script>
 </body>

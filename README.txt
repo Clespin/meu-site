@@ -1,12 +1,11 @@
-DASAIhub - Site Profissional V4
+DASAIhub - Site Final
 
-Correções incluídas:
-- Botão "Solicitar análise" sem preenchimento azul, igual aos botões secundários.
-- Substituição do gráfico estático "Result Builder" por gráfico interativo de previsibilidade com botões: 6 meses, 1 ano e 2 anos.
-- Seção de contato ajustada para exibir somente o botão Instagram com preenchimento nas cores do logo.
-- Removidos WhatsApp e e-mail da seção visual de contato.
-- Rodapé minimalista exibindo somente contato@dasaihub.com.br.
-- Botão flutuante de WhatsApp removido para manter a página final limpa.
+Correções finais aplicadas:
+- Rodapé reduzido e proporcional para aparência profissional.
+- Tipografia final ajustada: título, subtítulo, e-mail, links e copyright em escala premium.
+- Botão WhatsApp do rodapé redimensionado para padrão profissional.
+- Botão flutuante do WhatsApp mantido.
+- Botão da seção de contato mantido como "Contato".
 
 Publicação:
 1. Extraia o ZIP.
