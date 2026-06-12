@@ -1,26 +1,3 @@
-const menuButton = document.getElementById('menuButton');
-const nav = document.getElementById('nav');
-
-menuButton.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', String(open));
-});
-
-document.querySelectorAll('.nav a').forEach(link => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuButton.setAttribute('aria-expanded', 'false');
-  });
-});
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
-
 const stages = {
   "6m": { gestao: 30, excelencia: 20, faturamento: 10 },
   "1a": { gestao: 60, excelencia: 30, faturamento: 20 },
@@ -29,28 +6,30 @@ const stages = {
 
 function setStage(stage) {
   const data = stages[stage];
-  if (!data) return;
-
-  const gestaoValue = document.getElementById("gestaoValue");
-  const excelenciaValue = document.getElementById("excelenciaValue");
-  const faturamentoValue = document.getElementById("faturamentoValue");
-  const gestaoBar = document.getElementById("gestaoBar");
-  const excelenciaBar = document.getElementById("excelenciaBar");
-  const faturamentoBar = document.getElementById("faturamentoBar");
-
-  if (!gestaoValue || !excelenciaValue || !faturamentoValue) return;
-
-  gestaoValue.innerText = data.gestao + "%";
-  excelenciaValue.innerText = data.excelencia + "%";
-  faturamentoValue.innerText = data.faturamento + "%";
-
-  gestaoBar.style.width = data.gestao + "%";
-  excelenciaBar.style.width = data.excelencia + "%";
-  faturamentoBar.style.width = data.faturamento + "%";
-
+  document.getElementById("gestaoValue").innerText = data.gestao + "%";
+  document.getElementById("excelenciaValue").innerText = data.excelencia + "%";
+  document.getElementById("faturamentoValue").innerText = data.faturamento + "%";
+  document.getElementById("gestaoBar").style.width = data.gestao + "%";
+  document.getElementById("excelenciaBar").style.width = data.excelencia + "%";
+  document.getElementById("faturamentoBar").style.width = data.faturamento + "%";
   document.querySelectorAll(".stage-buttons button").forEach(btn => btn.classList.remove("active"));
-  const activeButton = document.getElementById("btn" + stage);
-  if (activeButton) activeButton.classList.add("active");
+  if (stage === "6m") document.getElementById("btn6m").classList.add("active");
+  if (stage === "1a") document.getElementById("btn1a").classList.add("active");
+  if (stage === "2a") document.getElementById("btn2a").classList.add("active");
 }
 
-setStage("6m");
+document.addEventListener("DOMContentLoaded", () => {
+  setStage("6m");
+  const toggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector(".nav-menu");
+  toggle.addEventListener("click", () => {
+    const isOpen = menu.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+  document.querySelectorAll(".nav-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+});
