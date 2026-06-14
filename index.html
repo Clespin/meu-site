@@ -10,19 +10,14 @@
   <meta property="og:description" content="Transformamos problemas invisíveis em sistemas previsíveis de aquisição, crescimento e monetização." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dasaihub.com.br" />
-  <meta name="theme-color" content="#05080a" />
+  <meta name="theme-color" content="#07111f" />
   <title>DASAIhub | IA, Engenharia de Prompt e Análises Avançadas</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="grid-overlay" aria-hidden="true"></div>
-
   <header class="site-header">
-    <a href="#inicio" class="brand" aria-label="DASAIhub início">
-      <span class="brand-text">DASAI<span class="accent">hub</span></span>
+    <a href="#inicio" class="brand brand-wordmark" aria-label="DASAIhub início">
+      <span class="brand-text">DASAI<span>hub</span></span>
     </a>
 
     <button class="menu-button" id="menuButton" aria-label="Abrir menu" aria-expanded="false">
@@ -36,42 +31,22 @@
       <a href="#prova">Estrutura</a>
       <a href="#certificacoes">Certificações</a>
       <a href="#analitico">PDF Analítico</a>
-      <a href="#contato" class="nav-cta">Contato</a>
+      <a href="#contato">Contato</a>
     </nav>
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero" id="inicio">
       <div class="hero-content reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>IA avançada · Dados · Comportamento · Execução</p>
-        <h1>Transformamos problemas <span class="hl">invisíveis</span> em crescimento previsível.</h1>
+        <p class="eyebrow">IA avançada • Dados • Comportamento • Execução</p>
+        <h1>Transformamos problemas invisíveis em crescimento previsível.</h1>
         <p class="hero-text">
           A DASAIhub funde Engenharia de Prompt, Arquitetura de Dados e Tecnologia Comportamental para criar sistemas de clareza, prospecção, aquisição, organização e monetização.
         </p>
         <div class="actions">
-          <a class="btn ghost" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">Solicitar análise</a>
+          <a class="btn primary" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">Solicitar análise</a>
+          <a class="btn ghost" href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Ver certificações</a>
           <a class="btn ghost" href="https://drive.google.com/file/d/1ipbguB5mUxok-UybhmZLTc3m3q5Psanm/view?usp=sharing" target="_blank" rel="noopener">PDF analítico</a>
-        </div>
-
-        <div class="hero-meta">
-          <div class="meta-item">
-            <span class="meta-num">04</span>
-            <span class="meta-label">eixos de método</span>
-            <span class="meta-desc">As 4 etapas do Método DASAIhub: diagnóstico, rastreamento, engenharia de instruções e arquitetura de execução.</span>
-          </div>
-          <div class="meta-divider"></div>
-          <div class="meta-item">
-            <span class="meta-num">06</span>
-            <span class="meta-label">frentes de solução</span>
-            <span class="meta-desc">Os 6 serviços oferecidos: Prompt, Dados, Processos, SEO, Marketing e Gestão Tática.</span>
-          </div>
-          <div class="meta-divider"></div>
-          <div class="meta-item">
-            <span class="meta-num">100%</span>
-            <span class="meta-label">governança &amp; conformidade</span>
-            <span class="meta-desc">Compromisso integral com ética, governança e conformidade em todas as entregas.</span>
-          </div>
         </div>
       </div>
 
@@ -83,9 +58,9 @@
         <p>Escolha uma etapa para visualizar a evolução prevista dos vetores estratégicos.</p>
 
         <div class="stage-buttons" aria-label="Selecionar período de projeção">
-          <button type="button" id="btn6m" class="active">6 meses</button>
-          <button type="button" id="btn1a">1 ano</button>
-          <button type="button" id="btn2a">2 anos</button>
+          <button type="button" id="btn6m" onclick="setStage('6m')">6 meses</button>
+          <button type="button" id="btn1a" onclick="setStage('1a')">1 ano</button>
+          <button type="button" id="btn2a" onclick="setStage('2a')">2 anos</button>
         </div>
 
         <div class="forecast-item">
@@ -93,7 +68,7 @@
             <span>Renovar gestão</span>
             <strong id="gestaoValue">30%</strong>
           </div>
-          <div class="forecast-bar"><div class="forecast-fill" id="gestaoBar" style="width:30%"></div></div>
+          <div class="forecast-bar"><div class="forecast-fill" id="gestaoBar"></div></div>
         </div>
 
         <div class="forecast-item">
@@ -101,7 +76,7 @@
             <span>Crescer com excelência</span>
             <strong id="excelenciaValue">20%</strong>
           </div>
-          <div class="forecast-bar"><div class="forecast-fill" id="excelenciaBar" style="width:20%"></div></div>
+          <div class="forecast-bar"><div class="forecast-fill" id="excelenciaBar"></div></div>
         </div>
 
         <div class="forecast-item">
@@ -109,111 +84,65 @@
             <span>Conquistar faturamento</span>
             <strong id="faturamentoValue">10%</strong>
           </div>
-          <div class="forecast-bar"><div class="forecast-fill" id="faturamentoBar" style="width:10%"></div></div>
+          <div class="forecast-bar"><div class="forecast-fill" id="faturamentoBar"></div></div>
         </div>
       </aside>
     </section>
 
-    <!-- SOBRE -->
     <section class="section intro" id="sobre">
       <div class="section-title reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>O que fazemos</p>
+        <p class="eyebrow">O que fazemos</p>
         <h2>Uma startup de IA para clareza estratégica, precisão analítica e execução tática.</h2>
       </div>
       <div class="intro-grid">
         <article class="glass reveal">
-          <span class="glass-index">01</span>
           <h3>Problemas invisíveis</h3>
           <p>Diagnosticamos falhas ocultas, inércia analítica, decisões intuitivas, ruídos comportamentais e lacunas de execução.</p>
         </article>
         <article class="glass reveal">
-          <span class="glass-index">02</span>
           <h3>Dados + comportamento</h3>
           <p>Integramos dados massivos, padrões de atenção e tecnologia comportamental para gerar sinais preditivos de alto impacto.</p>
         </article>
         <article class="glass reveal">
-          <span class="glass-index">03</span>
           <h3>Crescimento mensurável</h3>
           <p>Projetamos prospecção persuasiva, aquisição, retenção, organização e monetização com governança e conformidade.</p>
         </article>
       </div>
     </section>
 
-    <!-- MÉTODO -->
     <section class="section dark" id="metodo">
       <div class="section-title reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>Método DASAIhub</p>
+        <p class="eyebrow">Método DASAIhub</p>
         <h2>Da incerteza à ação estratégica.</h2>
       </div>
       <div class="timeline">
-        <article class="step reveal"><span class="step-num">01</span><h3>Diagnóstico macro</h3><p>Mapeamento 360º de objetivos, gargalos, dados disponíveis, mensagens, funil e operação.</p></article>
-        <article class="step reveal"><span class="step-num">02</span><h3>Rastreamento e fusão</h3><p>Cruzamento entre dados, comportamento, contexto, oportunidades e sinais de decisão.</p></article>
-        <article class="step reveal"><span class="step-num">03</span><h3>Engenharia de instruções</h3><p>Construção de prompts, parâmetros, fluxos e critérios para IA Generativa com maior precisão.</p></article>
-        <article class="step reveal"><span class="step-num">04</span><h3>Arquitetura de execução</h3><p>Transformação dos insights em planos, métricas, responsáveis, automações e entregas táticas.</p></article>
+        <article class="step reveal"><span>01</span><h3>Diagnóstico macro</h3><p>Mapeamento 360º de objetivos, gargalos, dados disponíveis, mensagens, funil e operação.</p></article>
+        <article class="step reveal"><span>02</span><h3>Rastreamento e fusão</h3><p>Cruzamento entre dados, comportamento, contexto, oportunidades e sinais de decisão.</p></article>
+        <article class="step reveal"><span>03</span><h3>Engenharia de instruções</h3><p>Construção de prompts, parâmetros, fluxos e critérios para IA Generativa com maior precisão.</p></article>
+        <article class="step reveal"><span>04</span><h3>Arquitetura de execução</h3><p>Transformação dos insights em planos, métricas, responsáveis, automações e entregas táticas.</p></article>
       </div>
     </section>
 
-    <!-- SOLUÇÕES -->
     <section class="section" id="solucoes">
       <div class="section-title reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>Soluções</p>
+        <p class="eyebrow">Soluções</p>
         <h2>Serviços para empresas, marcas e projetos que precisam operar com inteligência.</h2>
       </div>
       <div class="cards">
-        <article class="card reveal">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 7V4.5M14.5 7V4.5M9.5 19.5V17M14.5 19.5V17M7 9.5H4.5M7 14.5H4.5M19.5 9.5H17M19.5 14.5H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          <h3>Engenharia de Prompt</h3>
-          <p>Arquitetura de instruções para reduzir ruído, controlar respostas e transformar IA em ferramenta estratégica.</p>
-        </article>
-        <article class="card reveal">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 7V4.5M14.5 7V4.5M9.5 19.5V17M14.5 19.5V17M7 9.5H4.5M7 14.5H4.5M19.5 9.5H17M19.5 14.5H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          <h3>Análises Avançadas de Dados</h3>
-          <p>Tradução de dados complexos em clareza estatística, insights preditivos e decisões fundamentadas.</p>
-        </article>
-        <article class="card reveal">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 7V4.5M14.5 7V4.5M9.5 19.5V17M14.5 19.5V17M7 9.5H4.5M7 14.5H4.5M19.5 9.5H17M19.5 14.5H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          <h3>Modelagem de Processos</h3>
-          <p>Mapeamento de fluxos, desperdícios, responsabilidades, métricas e automações de alta precisão.</p>
-        </article>
-        <article class="card reveal">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 7V4.5M14.5 7V4.5M9.5 19.5V17M14.5 19.5V17M7 9.5H4.5M7 14.5H4.5M19.5 9.5H17M19.5 14.5H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          <h3>SEO e Prospecção</h3>
-          <p>Pesquisa de palavras-chave, posicionamento, funis persuasivos e geração contínua de leads.</p>
-        </article>
-        <article class="card reveal">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 7V4.5M14.5 7V4.5M9.5 19.5V17M14.5 19.5V17M7 9.5H4.5M7 14.5H4.5M19.5 9.5H17M19.5 14.5H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          <h3>Marketing e Identidade Visual</h3>
-          <p>Design de performance para captação, autoridade, retenção e crescimento sustentável.</p>
-        </article>
-        <article class="card reveal">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 7V4.5M14.5 7V4.5M9.5 19.5V17M14.5 19.5V17M7 9.5H4.5M7 14.5H4.5M19.5 9.5H17M19.5 14.5H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          <h3>Gestão e Execução Tática</h3>
-          <p>Orquestração de prioridades, prazos, recursos, indicadores e planos de ação mensuráveis.</p>
-        </article>
+        <article class="card reveal"><h3>Engenharia de Prompt</h3><p>Arquitetura de instruções para reduzir ruído, controlar respostas e transformar IA em ferramenta estratégica.</p></article>
+        <article class="card reveal"><h3>Análises Avançadas de Dados</h3><p>Tradução de dados complexos em clareza estatística, insights preditivos e decisões fundamentadas.</p></article>
+        <article class="card reveal"><h3>Modelagem de Processos</h3><p>Mapeamento de fluxos, desperdícios, responsabilidades, métricas e automações de alta precisão.</p></article>
+        <article class="card reveal"><h3>SEO e Prospecção</h3><p>Pesquisa de palavras-chave, posicionamento, funis persuasivos e geração contínua de leads.</p></article>
+        <article class="card reveal"><h3>Marketing e Identidade Visual</h3><p>Design de performance para captação, autoridade, retenção e crescimento sustentável.</p></article>
+        <article class="card reveal"><h3>Gestão e Execução Tática</h3><p>Orquestração de prioridades, prazos, recursos, indicadores e planos de ação mensuráveis.</p></article>
       </div>
     </section>
 
-    <!-- ESTRUTURA / PROVA -->
     <section class="section proof" id="prova">
       <div class="proof-copy reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>Estrutura técnica</p>
+        <p class="eyebrow">Estrutura técnica</p>
         <h2>Arquitetura analítica com impacto humano.</h2>
         <p>Unimos IA Analítica, IA Generativa e visão comportamental para evitar decisões por mera intuição. A proposta é criar previsibilidade com ética, governança e conformidade.</p>
-        <div class="proof-actions">
-          <a class="btn primary" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">Solicitar análise</a>
-        </div>
       </div>
       <div class="proof-list reveal">
         <div><strong>01</strong><span>Substituição da intuição por precisão.</span></div>
@@ -223,34 +152,24 @@
       </div>
     </section>
 
-    <!-- CERTIFICAÇÕES -->
     <section class="section credentials" id="certificacoes">
       <div class="section-title reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>Credenciais</p>
+        <p class="eyebrow">Credenciais</p>
         <h2>Certificações e especializações que sustentam o rigor metodológico da DASAIhub.</h2>
       </div>
       <div class="resource-card reveal">
         <div>
           <h3>Base técnica multidisciplinar</h3>
           <p>Formação contínua em Inteligência Artificial, Engenharia de Prompt, Data Analytics, Lean Six Sigma, Gestão de Projetos, Marketing Digital e Arquitetura Analítica aplicada à resolução de problemas invisíveis.</p>
-          <div class="tag-row">
-            <span class="tag">Inteligência Artificial</span>
-            <span class="tag">Engenharia de Prompt</span>
-            <span class="tag">Data Analytics</span>
-            <span class="tag">Lean Six Sigma</span>
-            <span class="tag">Gestão de Projetos</span>
-            <span class="tag">Marketing Digital</span>
-          </div>
         </div>
         <a class="btn primary" href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Abrir certificações</a>
       </div>
     </section>
 
-    <!-- PDF ANALÍTICO -->
     <section class="section analytical-pdf" id="analitico">
       <div class="resource-card dark-resource reveal">
         <div>
-          <p class="eyebrow"><span class="eyebrow-dot"></span>Documento estratégico</p>
+          <p class="eyebrow">Documento estratégico</p>
           <h2>PDF Analítico DASAIhub</h2>
           <p>Conheça a arquitetura conceitual da DASAIhub: Engenharia de Prompt, análise avançada de dados, modelagem de rastreamento e fusão, mecanismos de atenção, governança e previsibilidade aplicada à aquisição, crescimento e monetização.</p>
         </div>
@@ -258,10 +177,9 @@
       </div>
     </section>
 
-    <!-- CONTATO -->
     <section class="section contact" id="contato">
       <div class="contact-box reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span>Contato</p>
+        <p class="eyebrow">Contato</p>
         <h2>Pronto para transformar complexidade em ação?</h2>
         <p>Solicite uma análise inicial da sua operação, projeto, funil, marca ou ideia.</p>
         <div class="contact-actions single-contact-action">
@@ -271,10 +189,11 @@
     </section>
   </main>
 
+
   <footer class="footer professional-footer">
     <div class="footer-inner">
       <h2>DASAIhub Engenharia e Arquitetura</h2>
-      <p class="footer-services">Análises Avançadas de Dados · Engenharia de Prompt · IA aplicada à decisão</p>
+      <p class="footer-services">Análises Avançadas de Dados • Engenharia de Prompt • IA aplicada à decisão</p>
       <p><a href="mailto:contato@dasaihub.com.br">contato@dasaihub.com.br</a></p>
       <div class="footer-links" aria-label="Links úteis">
         <a href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Certificações</a>
