@@ -14,69 +14,34 @@ document.querySelectorAll('.nav a').forEach(link => {
 });
 
 /* ==========================================================================
-   Reveal amarrado ao scroll — progresso contínuo, avança e recua
-   conforme a posição real da página (sem disparo único)
+   Reveal on scroll — cascata de carregamento de dados
    ========================================================================== */
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+
+/* ==========================================================================
+   Scramble Text — decodificação da linguagem natural pelo modelo
+   ========================================================================== */
 const SCRAMBLE_CHARS = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-// Zona da tela em que a animação começa (perto do rodapé) e termina (mais acima)
-const ENTER_AT = 0.92; // 92% da altura da viewport
-const SETTLE_AT = 0.55; // 55% da altura da viewport
+function scrambleReveal(el) {
+  const final = el.dataset.text || el.textContent;
+  const duration = 900;
+  const frameRate = 32;
+  const totalFrames = Math.round(duration / frameRate);
+  let frame = 0;
 
-function clamp01(value) {
-  return Math.min(1, Math.max(0, value));
-}
-
-// Elementos que dividem um mesmo container ganham um pequeno atraso
-// progressivo (cascata), calculado pela posição entre os irmãos .reveal
-function buildRevealList() {
-  const groups = new Map();
-  document.querySelectorAll('.reveal').forEach(el => {
-    const parent = el.parentElement;
-    if (!groups.has(parent)) groups.set(parent, []);
-    groups.get(parent).push(el);
-  });
-
-  const items = [];
-  groups.forEach(siblings => {
-    siblings.forEach((el, index) => {
-      items.push({ el, offset: index * 46 }); // 46px de defasagem por item
-    });
-  });
-  return items;
-}
-
-const revealItems = buildRevealList();
-const scrambleItems = Array.from(document.querySelectorAll('[data-text]')).map(el => ({
-  el,
-  final: el.dataset.text || el.textContent
-}));
-
-function updateReveal() {
-  const vh = window.innerHeight;
-  const start = vh * ENTER_AT;
-  const end = vh * SETTLE_AT;
-
-  revealItems.forEach(({ el, offset }) => {
-    const top = el.getBoundingClientRect().top - offset;
-    const progress = clamp01((start - top) / (start - end));
-    el.style.setProperty('--p', progress.toFixed(3));
-  });
-
-  scrambleItems.forEach(({ el, final }) => {
-    const top = el.getBoundingClientRect().top;
-    const progress = clamp01((start - top) / (start - end));
-    const revealCount = Math.floor(progress * final.length);
-
-    if (progress <= 0) {
-      el.textContent = '';
-      return;
-    }
-    if (progress >= 1) {
-      el.textContent = final;
-      return;
-    }
+  const interval = setInterval(() => {
+    frame++;
+    const revealCount = Math.floor((frame / totalFrames) * final.length);
 
     el.textContent = final
       .split('')
@@ -86,26 +51,24 @@ function updateReveal() {
         return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
       })
       .join('');
-  });
+
+    if (frame >= totalFrames) {
+      el.textContent = final;
+      clearInterval(interval);
+    }
+  }, frameRate);
 }
 
-if (prefersReducedMotion) {
-  revealItems.forEach(({ el }) => el.style.setProperty('--p', 1));
-  scrambleItems.forEach(({ el, final }) => { el.textContent = final; });
-} else {
-  let ticking = false;
-  function onScrollOrResize() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      updateReveal();
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScrollOrResize, { passive: true });
-  window.addEventListener('resize', onScrollOrResize);
-  updateReveal();
-}
+const scrambleObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      scrambleReveal(entry.target);
+      scrambleObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('[data-text]').forEach(element => scrambleObserver.observe(element));
 
 /* ==========================================================================
    Malha Cognitiva — fundo poligonal com parallax sutil

@@ -420,20 +420,30 @@ body::after { display: none; }
 .floating-whatsapp:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 22px 48px rgba(0,0,0,.55); color: #05060A; }
 
 /* ==========================================================================
-   Reveal — animação amarrada ao progresso real do scroll
-   O JS calcula --p (0 a 1) a cada frame conforme a posição do elemento
-   na tela, então o efeito avança e recua junto com a rolagem.
+   Reveal on scroll
    ========================================================================== */
 .reveal {
-  --p: 0;
-  opacity: var(--p);
-  transform: translateY(calc(26px * (1 - var(--p))));
-  transition: opacity .15s linear, transform .15s linear, filter .15s linear;
-  will-change: opacity, transform, filter;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);
 }
+.reveal.visible { opacity: 1; transform: none; filter: blur(0); }
 
 /* Hero — reveal com desfoque (dados sendo processados e clarificados) */
-.hero .reveal { filter: blur(calc(10px * (1 - var(--p)))); }
+.hero .reveal { filter: blur(10px); }
+.hero .reveal.visible { filter: blur(0); }
+.hero-content .reveal:nth-child(1) { transition-delay: 0ms; }
+.hero-content .reveal:nth-child(2) { transition-delay: 90ms; }
+.hero-content .reveal:nth-child(3) { transition-delay: 180ms; }
+.hero-content .reveal:nth-child(4) { transition-delay: 260ms; }
+
+/* Staggered fade-up — cascata de carregamento de dados */
+.bento-grid > .reveal:nth-child(1), .timeline > .reveal:nth-child(1), .proof-list > .reveal:nth-child(1) { transition-delay: 0ms; }
+.bento-grid > .reveal:nth-child(2), .timeline > .reveal:nth-child(2), .proof-list > .reveal:nth-child(2) { transition-delay: 110ms; }
+.bento-grid > .reveal:nth-child(3), .timeline > .reveal:nth-child(3), .proof-list > .reveal:nth-child(3) { transition-delay: 220ms; }
+.bento-grid > .reveal:nth-child(4), .timeline > .reveal:nth-child(4), .proof-list > .reveal:nth-child(4) { transition-delay: 330ms; }
+.bento-grid > .reveal:nth-child(5) { transition-delay: 440ms; }
+.bento-grid > .reveal:nth-child(6) { transition-delay: 550ms; }
 
 /* ==========================================================================
    Responsivo
