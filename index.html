@@ -10,11 +10,16 @@
   <meta property="og:description" content="Transformamos problemas invisíveis em sistemas previsíveis de aquisição, crescimento e monetização." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dasaihub.com.br" />
-  <meta name="theme-color" content="#07111f" />
+  <meta name="theme-color" content="#0A0B10" />
   <title>DASAIhub | IA, Engenharia de Prompt e Análises Avançadas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <canvas id="meshBg" aria-hidden="true"></canvas>
+
   <header class="site-header">
     <a href="#inicio" class="brand brand-wordmark" aria-label="DASAIhub início">
       <span class="brand-text">DASAI<span>hub</span></span>
@@ -37,13 +42,13 @@
 
   <main>
     <section class="hero" id="inicio">
-      <div class="hero-content reveal">
-        <p class="eyebrow">IA avançada • Dados • Comportamento • Execução</p>
-        <h1>Transformamos problemas invisíveis em crescimento previsível.</h1>
-        <p class="hero-text">
+      <div class="hero-content">
+        <p class="eyebrow reveal">IA avançada • Dados • Comportamento • Execução</p>
+        <h1 class="reveal">Transformamos problemas invisíveis em crescimento previsível.</h1>
+        <p class="hero-text reveal">
           A DASAIhub funde Engenharia de Prompt, Arquitetura de Dados e Tecnologia Comportamental para criar sistemas de clareza, prospecção, aquisição, organização e monetização.
         </p>
-        <div class="actions">
+        <div class="actions reveal">
           <a class="btn primary" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20da%20DASAIhub." target="_blank" rel="noopener">Solicitar análise</a>
           <a class="btn ghost" href="https://canva.link/m1ktxt86hv94vg9" target="_blank" rel="noopener">Ver certificações</a>
           <a class="btn ghost" href="https://drive.google.com/file/d/1ipbguB5mUxok-UybhmZLTc3m3q5Psanm/view?usp=sharing" target="_blank" rel="noopener">PDF analítico</a>
@@ -94,7 +99,7 @@
         <p class="eyebrow">O que fazemos</p>
         <h2>Uma startup de IA para clareza estratégica, precisão analítica e execução tática.</h2>
       </div>
-      <div class="intro-grid">
+      <div class="bento-grid bento-intro">
         <article class="glass reveal">
           <h3>Problemas invisíveis</h3>
           <p>Diagnosticamos falhas ocultas, inércia analítica, decisões intuitivas, ruídos comportamentais e lacunas de execução.</p>
@@ -128,8 +133,15 @@
         <p class="eyebrow">Soluções</p>
         <h2>Serviços para empresas, marcas e projetos que precisam operar com inteligência.</h2>
       </div>
-      <div class="cards">
-        <article class="card reveal"><h3>Engenharia de Prompt</h3><p>Arquitetura de instruções para reduzir ruído, controlar respostas e transformar IA em ferramenta estratégica.</p></article>
+      <div class="bento-grid bento-solutions">
+        <article class="card reveal">
+          <h3>Engenharia de Prompt</h3>
+          <p>Arquitetura de instruções para reduzir ruído, controlar respostas e transformar IA em ferramenta estratégica.</p>
+          <div class="prompt-demo">
+            <span class="prompt-demo-label">&gt; saída processada</span>
+            <p class="prompt-demo-text" data-text="intenção mapeada → 3 variáveis → resposta validada">intenção mapeada → 3 variáveis → resposta validada</p>
+          </div>
+        </article>
         <article class="card reveal"><h3>Análises Avançadas de Dados</h3><p>Tradução de dados complexos em clareza estatística, insights preditivos e decisões fundamentadas.</p></article>
         <article class="card reveal"><h3>Modelagem de Processos</h3><p>Mapeamento de fluxos, desperdícios, responsabilidades, métricas e automações de alta precisão.</p></article>
         <article class="card reveal"><h3>SEO e Prospecção</h3><p>Pesquisa de palavras-chave, posicionamento, funis persuasivos e geração contínua de leads.</p></article>
@@ -188,7 +200,6 @@
       </div>
     </section>
   </main>
-
 
   <footer class="footer professional-footer">
     <div class="footer-inner">
