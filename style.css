@@ -485,14 +485,18 @@ body::after { display: none; }
    Badge de destaque em títulos — largura automática, nunca corta o texto
    (corrige o recorte visto atrás de "DASAIhub" no título de Certificações)
    ========================================================================== */
-.hl-badge {
-  display: inline-block;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 3px 14px;
-  margin-right:14px;
-  white-space: nowrap;
+.h1-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px 14px;
+    margin-right: 14px;
+    white-space: nowrap;
+}
 }
 .hl-badge .accent { color: var(--accent); }
 
