@@ -6,23 +6,69 @@
   <meta name="description" content="DASAIhub: startup de Inteligência Artificial, Engenharia de Prompt, Arquitetura de Dados e análises avançadas para transformar problemas invisíveis em crescimento previsível." />
   <meta name="keywords" content="DASAIhub, inteligência artificial, engenharia de prompt, análise de dados, IA generativa, automação, prospecção com IA, dados comportamentais" />
   <meta name="author" content="DASAIhub" />
+
+  <!-- Open Graph -->
   <meta property="og:title" content="DASAIhub | IA, Dados e Engenharia de Prompt" />
   <meta property="og:description" content="Transformamos problemas invisíveis em sistemas previsíveis de aquisição, crescimento e monetização." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://dasaihub.com.br" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="DASAIhub" />
+  <!-- IMPORTANTE: crie e envie um arquivo de 1200x630px em /assets/og-image.jpg
+       antes de publicar — sem ele, o preview ao compartilhar (ex.: no WhatsApp)
+       fica sem imagem. -->
+  <meta property="og:image" content="https://dasaihub.com.br/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DASAIhub — IA, Dados e Engenharia de Prompt" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DASAIhub | IA, Dados e Engenharia de Prompt" />
+  <meta name="twitter:description" content="Transformamos problemas invisíveis em sistemas previsíveis de aquisição, crescimento e monetização." />
+  <meta name="twitter:image" content="https://dasaihub.com.br/assets/og-image.jpg" />
+
+  <link rel="canonical" href="https://dasaihub.com.br/" />
   <meta name="theme-color" content="#0A0B10" />
   <title>DASAIhub | IA, Engenharia de Prompt e Análises Avançadas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Fallback: garante que nada fique invisível se o JS não rodar
+       (JS desabilitado, ou observer atrasado em capturas automatizadas de tela/PDF) -->
+  <noscript>
+    <style>.reveal { opacity: 1 !important; transform: none !important; filter: none !important; }</style>
+  </noscript>
+
+  <!-- Dados estruturados: reforça reconhecimento como consultoria (não apenas "site institucional") em buscadores -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "DASAIhub",
+    "url": "https://dasaihub.com.br",
+    "description": "Consultoria em Inteligência Artificial, Engenharia de Prompt, Arquitetura de Dados e Sistemas de Apoio à Decisão (AHP e Simulação de Monte Carlo).",
+    "email": "contato@dasaihub.com.br",
+    "areaServed": "BR",
+    "knowsAbout": [
+      "Inteligência Artificial",
+      "Engenharia de Prompt",
+      "Sistemas de Apoio à Decisão",
+      "Analytic Hierarchy Process",
+      "Simulação de Monte Carlo",
+      "Análise de Dados"
+    ]
+  }
+  </script>
 </head>
 <body>
   <canvas id="meshBg" aria-hidden="true"></canvas>
 
   <header class="site-header">
     <a href="#inicio" class="brand brand-wordmark" aria-label="DASAIhub início">
-      <span class="brand-text">DASAI<span>hub</span></span>
+      <span class="brand-text">DAS<span>AIHub</span></span>
     </a>
 
     <button class="menu-button" id="menuButton" aria-label="Abrir menu" aria-expanded="false">
@@ -34,6 +80,7 @@
       <a href="#metodo">Método</a>
       <a href="#solucoes">Soluções</a>
       <a href="#prova">Estrutura</a>
+      <a href="#processo">Como contratar</a>
       <a href="#certificacoes">Certificações</a>
       <a href="#analitico">PDF Analítico</a>
       <a href="#contato">Contato</a>
@@ -62,16 +109,18 @@
         </div>
         <p>Escolha uma etapa para visualizar a evolução prevista dos vetores estratégicos.</p>
 
-        <div class="stage-buttons" aria-label="Selecionar período de projeção">
-          <button type="button" id="btn6m" onclick="setStage('6m')">6 meses</button>
-          <button type="button" id="btn1a" onclick="setStage('1a')">1 ano</button>
-          <button type="button" id="btn2a" onclick="setStage('2a')">2 anos</button>
+        <div class="stage-buttons" role="group" aria-label="Selecionar período de projeção">
+          <button type="button" id="btn6m" data-stage="6m" aria-pressed="true">6 meses</button>
+          <button type="button" id="btn1a" data-stage="1a" aria-pressed="false">1 ano</button>
+          <button type="button" id="btn2a" data-stage="2a" aria-pressed="false">2 anos</button>
         </div>
+
+        <div class="forecast-graph" id="forecastChart" role="img" aria-label="Gráfico de evolução dos vetores estratégicos"></div>
 
         <div class="forecast-item">
           <div class="forecast-top">
             <span>Renovar gestão</span>
-            <strong id="gestaoValue">30%</strong>
+            <strong id="gestaoValue">40%</strong>
           </div>
           <div class="forecast-bar"><div class="forecast-fill" id="gestaoBar"></div></div>
         </div>
@@ -126,6 +175,25 @@
         <article class="step reveal"><span>03</span><h3>Engenharia de instruções</h3><p>Construção de prompts, parâmetros, fluxos e critérios para IA Generativa com maior precisão.</p></article>
         <article class="step reveal"><span>04</span><h3>Arquitetura de execução</h3><p>Transformação dos insights em planos, métricas, responsáveis, automações e entregas táticas.</p></article>
       </div>
+
+      <div class="section-title method-pillars-title reveal">
+        <p class="eyebrow">Base metodológica</p>
+        <h2>Decisão apoiada em método, não em intuição.</h2>
+      </div>
+      <div class="bento-grid method-pillars">
+        <article class="glass reveal">
+          <h3>AHP — Analytic Hierarchy Process</h3>
+          <p>Estruturamos decisões complexas em critérios hierárquicos comparáveis, tornando explícito o peso de cada variável antes de qualquer recomendação.</p>
+        </article>
+        <article class="glass reveal">
+          <h3>Simulação de Monte Carlo</h3>
+          <p>Testamos cenários sob incerteza, simulando milhares de combinações possíveis para dimensionar risco e probabilidade antes da decisão ser tomada.</p>
+        </article>
+        <article class="glass reveal">
+          <h3>Sistemas de Apoio à Decisão (DSS)</h3>
+          <p>Cada entrega é rastreável: os critérios, dados e premissas usados na recomendação ficam documentados e auditáveis, não escondidos numa "caixa-preta".</p>
+        </article>
+      </div>
     </section>
 
     <section class="section" id="solucoes">
@@ -164,10 +232,22 @@
       </div>
     </section>
 
+    <section class="section dark" id="processo">
+      <div class="section-title reveal">
+        <p class="eyebrow">Como contratar</p>
+        <h2>Um fluxo de engajamento formal, do primeiro contato à entrega.</h2>
+      </div>
+      <div class="timeline engagement-flow">
+        <article class="step reveal"><span>NDA</span><h3>Acordo de confidencialidade</h3><p>Antes de qualquer diagnóstico, formalizamos a proteção dos dados e informações estratégicas compartilhadas.</p></article>
+        <article class="step reveal"><span>RFP</span><h3>Solicitação de proposta</h3><p>Levantamento formal de escopo, objetivos e critérios de sucesso do projeto junto ao cliente.</p></article>
+        <article class="step reveal"><span>SoW</span><h3>Escopo de trabalho</h3><p>Documento final com entregáveis, prazos, responsabilidades e critérios de aceite — a base do projeto.</p></article>
+      </div>
+    </section>
+
     <section class="section credentials" id="certificacoes">
       <div class="section-title reveal">
         <p class="eyebrow">Credenciais</p>
-        <h2>Certificações e especializações que sustentam o rigor metodológico da DASAIhub.</h2>
+        <h2>Certificações e especializações que sustentam o rigor metodológico da <span class="hl-badge">DAS<span class="accent">AIHub</span></span>.</h2>
       </div>
       <div class="resource-card reveal">
         <div>
@@ -185,7 +265,6 @@
           <h2>PDF Analítico DASAIhub</h2>
           <p>Conheça a arquitetura conceitual da DASAIhub: Engenharia de Prompt, análise avançada de dados, modelagem de rastreamento e fusão, mecanismos de atenção, governança e previsibilidade aplicada à aquisição, crescimento e monetização.</p>
         </div>
-        <a class="btn primary" href="https://drive.google.com/file/d/1ipbguB5mUxok-UybhmZLTc3m3q5Psanm/view?usp=sharing" target="_blank" rel="noopener">Abrir PDF analítico</a>
       </div>
     </section>
 
@@ -203,7 +282,7 @@
 
   <footer class="footer professional-footer">
     <div class="footer-inner">
-      <h2>DASAIhub Engenharia e Arquitetura</h2>
+      <h2><span class="brand-text">DAS<span>AIHub</span></span> Engenharia e Arquitetura</h2>
       <p class="footer-services">Análises Avançadas de Dados • Engenharia de Prompt • IA aplicada à decisão</p>
       <p><a href="mailto:contato@dasaihub.com.br">contato@dasaihub.com.br</a></p>
       <div class="footer-links" aria-label="Links úteis">
@@ -216,9 +295,10 @@
   </footer>
 
   <a class="floating-whatsapp" href="https://wa.me/5515997963306?text=Ol%C3%A1%2C%20quero%20uma%20an%C3%A1lise%20inicial%20da%20DASAIhub." target="_blank" rel="noopener" aria-label="Falar com a DASAIhub pelo WhatsApp">
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2Zm5.79 14.11c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.12.11-1.81-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.17-1.55-1.17-2.96s.73-2.1.99-2.39c.24-.27.53-.34.71-.34.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.29.29-.12.57.16.28.73 1.2 1.57 1.95 1.08.96 1.99 1.26 2.27 1.4.28.14.45.12.61-.07.17-.19.71-.83.9-1.11.19-.28.38-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.12.07.68-.17 1.36Z"/>
     </svg>
+    <span>WhatsApp</span>
   </a>
 
   <script src="script.js"></script>
