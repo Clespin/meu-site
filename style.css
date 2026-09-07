@@ -538,4 +538,22 @@ body::after { display: none; }
   .professional-footer { padding-bottom: 96px; }
   .floating-whatsapp { right: 16px; bottom: 16px; height: 52px; padding: 0 18px; font-size: 14px; }
   .floating-whatsapp svg { width: 19px; height: 19px; }
+.btn-cta-dasai {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00b4d8;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    margin-top: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+.btn-cta-dasai:hover {
+    background-color: #0096b4;
 }
