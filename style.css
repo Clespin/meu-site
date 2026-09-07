@@ -530,6 +530,16 @@ body::after { display: none; }
   .btn { width: 100%; }
   .footer-links { flex-wrap: wrap; }
   .footer { padding-bottom: 96px; }
+   .footer-services {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os blocos caiam para a linha de baixo se necessário */
+    justify-content: center;
+    column-gap: 5px; 
+}
+
+.footer-services span {
+    white-space: nowrap; /* Impede a quebra de texto dentro das tags span */
+}
   .professional-footer { padding-bottom: 96px; }
   .floating-whatsapp { right: 16px; bottom: 16px; height: 52px; padding: 0 18px; font-size: 14px; }
   .floating-whatsapp svg { width: 19px; height: 19px; }
