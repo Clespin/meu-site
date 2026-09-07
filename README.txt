@@ -1,6 +1,7 @@
 DASAIhub - Site Final
 
 Correções finais aplicadas:
+- Fontes alteradas: Manrope nos títulos e Inter Tight no restante do site.
 - Rodapé reduzido e proporcional para aparência profissional.
 - Tipografia final ajustada: título, subtítulo, e-mail, links e copyright em escala premium.
 - Botão WhatsApp do rodapé redimensionado para padrão profissional.
