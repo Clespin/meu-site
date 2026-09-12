@@ -239,6 +239,11 @@ body::after { display: none; }
 .forecast-bar { width: 100%; height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; }
 .forecast-fill { height: 100%; width: 0%; background: var(--gradient-signature); border-radius: 999px; transition: width .8s var(--ease); }
 
+.forecast-disclaimer {
+  font-size: 12px; line-height: 1.5; color: var(--muted); opacity: .8;
+  border-top: 1px solid var(--border); padding-top: 16px; margin-top: 2px;
+}
+
 /* ==========================================================================
    Seções — base
    ========================================================================== */
@@ -410,7 +415,12 @@ body::after { display: none; }
   font-size: clamp(22px, 2.4vw, 30px); line-height: 1.2; margin-bottom: 14px;
   font-weight: 800; letter-spacing: -.01em; color: var(--text);
 }
-.footer-services { max-width: 640px; margin: 0 auto 14px; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.7; color: var(--accent); font-family: var(--font-mono); }
+.footer-services {
+  max-width: 640px; margin: 0 auto 14px; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.7;
+  color: var(--accent); font-family: var(--font-mono);
+  display: flex; flex-wrap: wrap; justify-content: center; column-gap: 5px;
+}
+.footer-services span { white-space: nowrap; }
 .professional-footer a { color: var(--text); transition: color .2s var(--ease); }
 .professional-footer a:hover { color: var(--accent); }
 .professional-footer p a { display: inline-block; font-size: clamp(16px, 1.8vw, 19px); line-height: 1.35; font-weight: 600; }
@@ -530,16 +540,6 @@ body::after { display: none; }
   .btn { width: 100%; }
   .footer-links { flex-wrap: wrap; }
   .footer { padding-bottom: 96px; }
-   .footer-services {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os blocos caiam para a linha de baixo se necessário */
-    justify-content: center;
-    column-gap: 5px; 
-}
-
-.footer-services span {
-    white-space: nowrap; /* Impede a quebra de texto dentro das tags span */
-}
   .professional-footer { padding-bottom: 96px; }
   .floating-whatsapp { right: 16px; bottom: 16px; height: 52px; padding: 0 18px; font-size: 14px; }
   .floating-whatsapp svg { width: 19px; height: 19px; }
