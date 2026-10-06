@@ -352,3 +352,42 @@
 
   setStage("6m");
 })();
+
+
+/* ==========================================================================
+   Formulário de contato — monta a mensagem e abre o WhatsApp (sem backend)
+   ========================================================================== */
+(function initLeadForm() {
+  const form = document.getElementById('leadForm');
+  if (!form) return;
+  const area = document.getElementById('lfArea');
+  const mail = document.getElementById('lfMail');
+  const WPP = '5515997963306';
+
+  function buildText() {
+    const d = new FormData(form);
+    return [
+      'Olá, quero um diagnóstico inicial com a DASAIhub.',
+      'Nome: ' + (d.get('nome') || '').trim(),
+      'Empresa: ' + (d.get('empresa') || '').trim(),
+      'E-mail: ' + (d.get('email') || '').trim(),
+      'Área de interesse: ' + d.get('area'),
+      'Decisão/problema: ' + (d.get('mensagem') || '').trim()
+    ].join('\n');
+  }
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    window.open('https://wa.me/' + WPP + '?text=' + encodeURIComponent(buildText()), '_blank', 'noopener');
+  });
+
+  mail.addEventListener('click', () => {
+    mail.href = 'mailto:contato@dasaihub.com.br?subject=' +
+      encodeURIComponent('Diagnóstico inicial — ' + (form.empresa.value || 'nova empresa')) +
+      '&body=' + encodeURIComponent(buildText());
+  });
+
+  document.querySelectorAll('[data-interest]').forEach(el => {
+    el.addEventListener('click', () => { if (area) area.value = el.dataset.interest; });
+  });
+})();
