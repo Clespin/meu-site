@@ -231,10 +231,10 @@
 
 /* ==========================================================================
    Painel de previsibilidade
-   Correção: handlers via addEventListener (data-stage) em vez de onclick
-   inline, aria-pressed sincronizado para leitores de tela, e gráfico
-   Chart.js (linha, 3 séries) sincronizado com os cartões de percentual —
-   dados fiéis à referência aprovada, mapeados para gestão/excelência/faturamento.
+   Gráfico em canvas puro (sem biblioteca externa, sem CDN) com animação de
+   mola: cada ponto parte em sequência (esquerda → direita, série por série),
+   ultrapassa levemente o alvo e assenta. Números e barras acompanham o gráfico.
+   Handlers via addEventListener (data-stage) e aria-pressed sincronizado.
    ========================================================================== */
 (function initForecastPanel() {
   const stages = {
@@ -243,114 +243,301 @@
         gestao:       [0, 55, 15, 60, 20, 40], // termina em 40%
         excelencia:   [0, 35, 5, 45, 10, 20],  // termina em 20%
         faturamento:  [0, 20, 2, 25, 5, 10]    // termina em 10%
-      },
-      percents: { gestao: 40, excelencia: 20, faturamento: 10 }
+      }
     },
     "1a": {
       graph: {
         gestao:       [0, 75, 25, 85, 35, 60], // termina em 60%
         excelencia:   [0, 45, 10, 55, 15, 30], // termina em 30%
         faturamento:  [0, 30, 5, 40, 10, 20]   // termina em 20%
-      },
-      percents: { gestao: 60, excelencia: 30, faturamento: 20 }
+      }
     },
     "2a": {
       graph: {
-        gestao:       [0, 85, 45, 98, 60, 95], // oscila até 98%, termina em 95%
+        gestao:       [0, 85, 45, 98, 60, 95], // termina em 95%
         excelencia:   [0, 50, 20, 80, 35, 65], // termina em 65%
         faturamento:  [0, 35, 15, 65, 25, 55]  // termina em 55%
-      },
-      percents: { gestao: 95, excelencia: 65, faturamento: 55 }
+      }
     }
   };
 
-  const gestaoValue = document.getElementById("gestaoValue");
-  const excelenciaValue = document.getElementById("excelenciaValue");
-  const faturamentoValue = document.getElementById("faturamentoValue");
-  const gestaoBar = document.getElementById("gestaoBar");
-  const excelenciaBar = document.getElementById("excelenciaBar");
-  const faturamentoBar = document.getElementById("faturamentoBar");
+  const SERIES = [
+    { key: "gestao",      label: "Renovar gestão",         color: "#bc8cff", rgb: "188,140,255", delay: 0.00 },
+    { key: "excelencia",  label: "Crescer com excelência", color: "#58a6ff", rgb: "88,166,255",  delay: 0.12 },
+    { key: "faturamento", label: "Conquistar faturamento", color: "#38d3c6", rgb: "56,211,198",  delay: 0.24 }
+  ];
+
+  const valueEls = {
+    gestao: document.getElementById("gestaoValue"),
+    excelencia: document.getElementById("excelenciaValue"),
+    faturamento: document.getElementById("faturamentoValue")
+  };
+  const barEls = {
+    gestao: document.getElementById("gestaoBar"),
+    excelencia: document.getElementById("excelenciaBar"),
+    faturamento: document.getElementById("faturamentoBar")
+  };
   const stageButtons = document.querySelectorAll(".stage-buttons button[data-stage]");
   const chartContainer = document.getElementById("forecastChart");
 
-  if (!gestaoValue || !excelenciaValue || !faturamentoValue || !gestaoBar || !excelenciaBar || !faturamentoBar || !stageButtons.length) {
-    return;
+  const allPresent = SERIES.every(s => valueEls[s.key] && barEls[s.key]);
+  if (!allPresent || !stageButtons.length || !chartContainer) return;
+
+  /* ---------- Configuração da animação (física de mola) ---------- */
+  const STIFFNESS = 70;       // maior = mola mais rápida
+  const DAMPING = 11;         // menor = mais ultrapasse; maior = movimento mais seco
+  const POINT_STAGGER = 0.09; // segundos entre um ponto e o seguinte (onda esquerda → direita)
+  const POINTS = 6;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const clamp = (v, a = 0, b = 100) => Math.max(a, Math.min(b, v));
+
+  /* ---------- Estado ---------- */
+  const state = {};
+  SERIES.forEach(s => {
+    state[s.key] = Array.from({ length: POINTS }, () => ({ x: 0, v: 0, target: 0, delay: 0 }));
+  });
+
+  let canvas = null;
+  let ctx = null;
+  let cssW = 0;
+  let cssH = 0;
+  let rafId = null;
+  let running = false;
+
+  // As barras são guiadas quadro a quadro pelo JS: sem transição CSS para não "atrasar"
+  SERIES.forEach(s => { barEls[s.key].style.transition = "none"; });
+
+  /* ---------- Canvas ---------- */
+  function resizeCanvas() {
+    const rect = chartContainer.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cssW = Math.max(1, rect.width);
+    cssH = Math.max(1, rect.height);
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  // Gráfico desenhado em SVG puro (sem CDN externo) — elimina o risco de
-  // painel vazio quando uma biblioteca de terceiros não carrega.
-  const SERIES = [
-    { key: "gestao", color: "#bc8cff" },
-    { key: "excelencia", color: "#58a6ff" },
-    { key: "faturamento", color: "#38d3c6" }
-  ];
-  const VIEW_W = 600, VIEW_H = 200, PAD = 6;
+  function setupCanvas() {
+    canvas = document.createElement("canvas");
+    canvas.setAttribute("aria-hidden", "true");
+    canvas.style.cssText = "display:block;width:100%;height:100%;";
+    chartContainer.innerHTML = "";
+    chartContainer.appendChild(canvas);
+    ctx = canvas.getContext("2d");
+    if (!ctx) return false;
+    resizeCanvas();
 
-  function buildPoints(values) {
-    const step = (VIEW_W - PAD * 2) / (values.length - 1);
-    return values.map((v, i) => {
-      const x = PAD + i * step;
-      const y = PAD + (VIEW_H - PAD * 2) * (1 - v / 100);
-      return [x, y];
+    const onResize = () => { resizeCanvas(); draw(); };
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(onResize).observe(chartContainer);
+    } else {
+      window.addEventListener("resize", onResize);
+    }
+    return true;
+  }
+
+  /* ---------- Desenho ---------- */
+  const PAD = { l: 6, r: 12, t: 12, b: 6 };
+
+  function plotX(i) { return PAD.l + i * ((cssW - PAD.l - PAD.r) / (POINTS - 1)); }
+  function plotY(v) { return PAD.t + (cssH - PAD.t - PAD.b) * (1 - clamp(v) / 100); }
+
+  // Curva suave (Catmull-Rom → Bézier) com pontos de controle limitados à área do gráfico
+  function tracePath(pts) {
+    const top = PAD.t, bottom = cssH - PAD.b;
+    const cy = y => Math.max(top, Math.min(bottom, y));
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[i + 2] || p2;
+      ctx.bezierCurveTo(
+        p1[0] + (p2[0] - p0[0]) / 6, cy(p1[1] + (p2[1] - p0[1]) / 6),
+        p2[0] - (p3[0] - p1[0]) / 6, cy(p2[1] - (p3[1] - p1[1]) / 6),
+        p2[0], p2[1]
+      );
+    }
+  }
+
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, cssW, cssH);
+
+    // Linhas de grade
+    ctx.save();
+    ctx.strokeStyle = "#262938";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    [25, 50, 75].forEach(pct => {
+      const y = Math.round(plotY(pct)) + 0.5;
+      ctx.beginPath();
+      ctx.moveTo(PAD.l, y);
+      ctx.lineTo(cssW - PAD.r, y);
+      ctx.stroke();
+    });
+    ctx.restore();
+
+    const pulse = ((performance.now() / 1000) % 1.2) / 1.2;
+
+    SERIES.forEach(s => {
+      const pts = state[s.key].map((p, i) => [plotX(i), plotY(p.x)]);
+
+      // Preenchimento em gradiente
+      const grad = ctx.createLinearGradient(0, PAD.t, 0, cssH - PAD.b);
+      grad.addColorStop(0, `rgba(${s.rgb},0.30)`);
+      grad.addColorStop(1, `rgba(${s.rgb},0)`);
+      ctx.beginPath();
+      tracePath(pts);
+      ctx.lineTo(pts[pts.length - 1][0], cssH - PAD.b);
+      ctx.lineTo(pts[0][0], cssH - PAD.b);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Linha com brilho suave
+      ctx.save();
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur = 10;
+      ctx.strokeStyle = s.color;
+      ctx.lineWidth = 2.4;
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      tracePath(pts);
+      ctx.stroke();
+      ctx.restore();
+
+      // Ponto luminoso no fim da linha (anel pulsante enquanto recalcula)
+      const hx = pts[pts.length - 1][0];
+      const hy = pts[pts.length - 1][1];
+      ctx.save();
+      if (running) {
+        ctx.beginPath();
+        ctx.arc(hx, hy, 4 + pulse * 10, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${s.rgb},${0.55 * (1 - pulse)})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur = 14;
+      ctx.beginPath();
+      ctx.arc(hx, hy, 4, 0, Math.PI * 2);
+      ctx.fillStyle = s.color;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.beginPath();
+      ctx.arc(hx, hy, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = "#0A0B10";
+      ctx.fill();
+      ctx.restore();
     });
   }
 
-  function pointsToPath(points) {
-    return points.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+  /* ---------- Números, barras e acessibilidade ---------- */
+  function renderNumbers() {
+    SERIES.forEach(s => {
+      const v = Math.round(clamp(state[s.key][POINTS - 1].x));
+      valueEls[s.key].textContent = v + "%";
+      barEls[s.key].style.width = v + "%";
+    });
   }
 
-  function renderChart(stageData) {
-    if (!chartContainer) return;
-
-    const gridLines = [25, 50, 75].map(pct => {
-      const y = (PAD + (VIEW_H - PAD * 2) * (1 - pct / 100)).toFixed(1);
-      return `<line x1="${PAD}" y1="${y}" x2="${VIEW_W - PAD}" y2="${y}" stroke="#262938" stroke-width="1" stroke-dasharray="4 4" />`;
-    }).join("");
-
-    const seriesMarkup = SERIES.map(s => {
-      const points = buildPoints(stageData.graph[s.key]);
-      const line = pointsToPath(points);
-      const fillPoints = `${PAD},${VIEW_H - PAD} ${line} ${VIEW_W - PAD},${VIEW_H - PAD}`;
-      return `
-        <polygon points="${fillPoints}" fill="${s.color}" fill-opacity="0.14" />
-        <polyline points="${line}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-      `;
-    }).join("");
-
-    chartContainer.innerHTML = `
-      <svg viewBox="0 0 ${VIEW_W} ${VIEW_H}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        ${gridLines}
-        ${seriesMarkup}
-      </svg>
-    `;
+  function updateAriaLabel() {
+    const parts = SERIES.map(s => `${s.label}: ${Math.round(state[s.key][POINTS - 1].target)}%`);
+    chartContainer.setAttribute("aria-label", "Gráfico de evolução dos vetores estratégicos. " + parts.join(", "));
   }
 
-  function setStage(stage) {
+  /* ---------- Animação ----------
+     Cada ponto é uma mola: aceleração = -k·(x - alvo) - c·v.
+     Ao trocar de período no meio da animação, a velocidade é preservada
+     (transição sempre contínua). */
+  function animateTo(stage) {
     const data = stages[stage];
     if (!data) return;
 
-    gestaoValue.innerText = data.percents.gestao + "%";
-    excelenciaValue.innerText = data.percents.excelencia + "%";
-    faturamentoValue.innerText = data.percents.faturamento + "%";
+    SERIES.forEach(s => {
+      state[s.key].forEach((p, i) => {
+        p.target = data.graph[s.key][i];
+        p.delay = s.delay + i * POINT_STAGGER;
+      });
+    });
+    updateAriaLabel();
 
-    gestaoBar.style.width = data.percents.gestao + "%";
-    excelenciaBar.style.width = data.percents.excelencia + "%";
-    faturamentoBar.style.width = data.percents.faturamento + "%";
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
 
-    renderChart(data);
+    if (reduceMotion || !ctx) {
+      SERIES.forEach(s => state[s.key].forEach(p => { p.x = p.target; p.v = 0; }));
+      running = false;
+      renderNumbers();
+      draw();
+      return;
+    }
 
+    running = true;
+    const start = performance.now();
+    let last = start;
+
+    function frame(now) {
+      const dt = Math.min((now - last) / 1000, 1 / 30);
+      last = now;
+      const elapsed = (now - start) / 1000;
+      let settled = true;
+
+      SERIES.forEach(s => {
+        state[s.key].forEach(p => {
+          if (elapsed < p.delay) { settled = false; return; }
+          const h = dt / 2; // 2 sub-passos para estabilidade
+          for (let n = 0; n < 2; n++) {
+            const a = -STIFFNESS * (p.x - p.target) - DAMPING * p.v;
+            p.v += a * h;
+            p.x += p.v * h;
+          }
+          if (Math.abs(p.x - p.target) < 0.04 && Math.abs(p.v) < 0.08) {
+            p.x = p.target;
+            p.v = 0;
+          } else {
+            settled = false;
+          }
+        });
+      });
+
+      renderNumbers();
+
+      if (settled) {
+        running = false;
+        rafId = null;
+        draw();
+      } else {
+        draw();
+        rafId = requestAnimationFrame(frame);
+      }
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function setStage(stage) {
+    if (!stages[stage]) return;
     stageButtons.forEach(btn => {
       const isActive = btn.dataset.stage === stage;
       btn.classList.toggle("active", isActive);
       btn.setAttribute("aria-pressed", String(isActive));
     });
+    animateTo(stage);
   }
 
   stageButtons.forEach(btn => {
     btn.addEventListener("click", () => setStage(btn.dataset.stage));
   });
 
-  setStage("6m");
+  /* ---------- Início ---------- */
+  setupCanvas();
+  renderNumbers(); // parte de 0%
+  draw();
+  // Pequena pausa para o painel terminar de aparecer (.reveal) antes da primeira animação
+  window.setTimeout(() => setStage("6m"), reduceMotion ? 0 : 450);
 })();
 
 
